@@ -1,7 +1,7 @@
 name = "Enraged Criticals"
 description = "Bosses become enraged after taking too much damage in a short time. Enraged bosses break control effects and can critically hit players."
-author = "gongqq"
-version = "1.0.0"
+author = "codex"
+version = "1.0.1"
 
 forumthread = ""
 api_version = 10
@@ -11,7 +11,7 @@ dont_starve_compatible = false
 reign_of_giants_compatible = false
 shipwrecked_compatible = false
 
-all_clients_require_mod = true
+all_clients_require_mod = false
 client_only_mod = false
 server_filter_tags = { "boss", "combat", "enrage", "critical" }
 
@@ -19,8 +19,8 @@ configuration_options =
 {
     {
         name = "overload_window",
-        label = "Overload Window",
-        hover = "Seconds of recent player damage counted toward boss overload.",
+        label = "过载窗口",
+        hover = "Boss 受到的玩家近期伤害会在这段时间内累计，用于触发暴怒。",
         options =
         {
             { description = "3s", data = 3 },
@@ -32,8 +32,8 @@ configuration_options =
     },
     {
         name = "overload_threshold_percent",
-        label = "Overload Threshold",
-        hover = "Recent player damage needed to enrage a boss, as a percent of its max health.",
+        label = "过载阈值",
+        hover = "触发 Boss 暴怒所需的近期玩家伤害，按 Boss 最大生命值百分比计算。",
         options =
         {
             { description = "4%", data = 0.04 },
@@ -46,11 +46,11 @@ configuration_options =
     },
     {
         name = "overload_min_threshold",
-        label = "Minimum Threshold",
-        hover = "Minimum recent damage required to trigger overload, even for low-health bosses.",
+        label = "最低阈值",
+        hover = "触发过载所需的最低近期伤害。低血量 Boss 也至少需要达到这个数值。",
         options =
         {
-            { description = "None", data = 0 },
+            { description = "无", data = 0 },
             { description = "300", data = 300 },
             { description = "400", data = 400 },
             { description = "500", data = 500 },
@@ -60,22 +60,22 @@ configuration_options =
     },
     {
         name = "overload_max_threshold",
-        label = "Maximum Threshold",
-        hover = "Maximum recent damage required to trigger overload, even for very high-health bosses.",
+        label = "最高阈值",
+        hover = "触发过载所需的最高近期伤害。高血量 Boss 的阈值不会超过这个数值。",
         options =
         {
             { description = "1200", data = 1200 },
             { description = "1500", data = 1500 },
             { description = "1800", data = 1800 },
             { description = "2200", data = 2200 },
-            { description = "No Limit", data = 0 },
+            { description = "无限制", data = 0 },
         },
         default = 1800,
     },
     {
         name = "enrage_duration",
-        label = "Enrage Duration",
-        hover = "How long a boss stays enraged.",
+        label = "暴怒持续时间",
+        hover = "Boss 进入暴怒后持续的时间。再次触发暴怒会刷新持续时间。",
         options =
         {
             { description = "8s", data = 8 },
@@ -87,8 +87,8 @@ configuration_options =
     },
     {
         name = "control_immunity_duration",
-        label = "Control Immunity",
-        hover = "Seconds of control immunity after a boss becomes enraged.",
+        label = "免控时间",
+        hover = "Boss 触发或刷新暴怒后，持续清除睡眠、冰冻、困倦等控制效果的时间。",
         options =
         {
             { description = "2s", data = 2 },
@@ -100,8 +100,8 @@ configuration_options =
     },
     {
         name = "damage_taken_mult",
-        label = "Damage Taken",
-        hover = "Damage bosses take at enrage stack 1. Repeated overloads reduce this further.",
+        label = "受到伤害",
+        hover = "Boss 在 1 层暴怒时受到的伤害比例。连续过载会进一步降低受到的伤害。",
         options =
         {
             { description = "100%", data = 1.00 },
@@ -114,8 +114,8 @@ configuration_options =
     },
     {
         name = "crit_chance",
-        label = "Critical Chance",
-        hover = "Chance for an enraged boss hit to become a critical hit.",
+        label = "暴击概率",
+        hover = "暴怒 Boss 命中玩家时触发暴击的概率。",
         options =
         {
             { description = "25%", data = 0.25 },
@@ -127,8 +127,8 @@ configuration_options =
     },
     {
         name = "true_damage_percent",
-        label = "True Damage",
-        hover = "Extra armor-ignoring damage at enrage stack 1. Repeated overloads increase this.",
+        label = "真伤比例",
+        hover = "1 层暴怒暴击时追加的无视护甲伤害比例。连续过载会提高这个比例。",
         options =
         {
             { description = "10%", data = 0.10 },
@@ -140,8 +140,8 @@ configuration_options =
     },
     {
         name = "armor_wear_percent",
-        label = "Armor Wear",
-        hover = "Extra armor durability loss at enrage stack 1. Repeated overloads increase this.",
+        label = "护甲损耗",
+        hover = "1 层暴怒暴击时追加的护甲耐久损耗比例。连续过载会提高这个比例。",
         options =
         {
             { description = "25%", data = 0.25 },
