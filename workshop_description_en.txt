@@ -1,0 +1,112 @@
+[h1]Enraged Criticals[/h1]
+
+[b]This is a server-side mod. Players do not need to install it on their clients.[/b]
+
+This mod adds damage overload, Enrage stacking, and critical hit mechanics to bosses with the [b]epic[/b] tag, as long as they have both [b]health[/b] and [b]combat[/b] components.
+
+When a boss takes too much damage from players within a short time window, it becomes enraged. While enraged, the boss gains damage reduction, temporarily ignores sleep, freeze, grogginess, and similar control effects, and has a chance to deal critical hits. Critical hits add armor-piercing true damage and cause extra armor durability loss.
+
+[h2]Core Mechanics[/h2]
+
+[list]
+[*]Damage tracking window: 4 seconds
+[*]Trigger threshold: clamp(Boss max health * 6%, 500, 1800)
+[*]Enrage duration: 10 seconds
+[*]Control immunity after trigger or refresh: 3 seconds
+[*]Critical chance: 50%
+[*]Maximum Enrage stacks: 4
+[/list]
+
+When a boss takes damage from a player or a player follower, the mod records recent damage dealt within the last 4 seconds. Once the accumulated damage reaches the threshold, the boss becomes enraged.
+
+[list]
+[*]First trigger: Enrage Stack 1
+[*]Triggering again while enraged: Enrage stacks increase by 1, up to 4 stacks
+[*]Each trigger or refresh clears the accumulated damage record
+[*]Each trigger or refresh grants 3 seconds of control immunity
+[*]Enrage duration refreshes to 10 seconds
+[*]When Enrage ends naturally, stacks reset to 0
+[/list]
+
+[h2]Enrage Effects[/h2]
+
+[list]
+[*]Removes sleep, freeze, grogginess, and similar control effects
+[*]Continues clearing these control effects for 3 seconds
+[*]The boss turns red, with higher stacks making it redder
+[*]The boss gains damage reduction
+[*]While enraged, the boss has a 50% chance to critically hit players
+[*]Critical hits add armor-piercing true damage
+[*]Critical hits also cause extra armor durability loss
+[/list]
+
+[h2]Stack Values[/h2]
+
+[list]
+[*][b]Stack 1[/b]: Boss takes 75% damage, critical true damage 15%, extra armor loss 30%
+[*][b]Stack 2[/b]: Boss takes 65% damage, critical true damage 25%, extra armor loss 45%
+[*][b]Stack 3[/b]: Boss takes 55% damage, critical true damage 35%, extra armor loss 60%
+[*][b]Stack 4[/b]: Boss takes 50% damage, critical true damage 45%, extra armor loss 75%
+[/list]
+
+[h2]Critical Damage[/h2]
+
+Critical true damage uses the highest value among:
+
+[list]
+[*]The boss's default attack damage
+[*]original_damage
+[*]damage
+[/list]
+
+This means bosses like Deerclops will not have their critical true damage reduced just because the base game halves their damage against players.
+
+[h2]Default Threshold Examples[/h2]
+
+The default threshold is not simply 6%. It is:
+
+[code]clamp(Boss max health * 6%, 500, 1800)[/code]
+
+[list]
+[*]Deerclops: 4000 health, 6% = 240, actual trigger threshold = 500
+[*]Moose/Goose: 6000 health, 6% = 360, actual trigger threshold = 500
+[*]Bearger: 6000 health, 6% = 360, actual trigger threshold = 500
+[*]Dragonfly: 27500 health, 6% = 1650, actual trigger threshold = 1650
+[/list]
+
+[h2]Gameplay Feel[/h2]
+
+For lower-health bosses such as Deerclops, Moose/Goose, and Bearger, [b]500 damage[/b] is the key breakpoint.
+
+[list]
+[*]A normal character with a Dark Sword or Glass Cutter can reliably trigger Enrage solo
+[*]A Ham Bat can trigger it solo only with very high attack uptime; 2 players are more reliable
+[*]Spear, Battle Spear, and Tentacle Spike usually require 2 players
+[/list]
+
+For high-health bosses like Dragonfly, stable Enrage triggers and repeated stacking usually require coordinated high-damage multiplayer focus fire.
+
+[list]
+[*]3 normal characters with Dark Swords or Glass Cutters can trigger it at the limit; 4 players are more reliable
+[*]4 players with Ham Bats are reliable
+[*]Lower-damage weapons usually require around 5 to 7 players
+[/list]
+
+For max-mightiness Wolfgang, damage is doubled, so Enrage becomes much easier to trigger.
+
+[list]
+[*]Deerclops, Moose/Goose, and Bearger: Wolfgang can trigger Enrage solo even with a Spear
+[*]Dragonfly: 2 max-mightiness Wolfgangs with Ham Bats, Dark Swords, or Glass Cutters can trigger Enrage fairly reliably
+[/list]
+
+[h2]Design Goal[/h2]
+
+This mechanic makes high-damage weapons, Wolfgang, and multiplayer focus fire more likely to trigger boss Enrage, creating higher risk for high burst damage strategies. Lower-damage kiting playstyles are affected less.
+
+In short:
+
+[list]
+[*]Lower damage: safer, but the fight takes longer
+[*]High burst damage: faster, but more likely to enrage and stack the boss
+[*]Multiplayer focus fire: more efficient, but also more dangerous
+[/list]
