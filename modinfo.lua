@@ -16,7 +16,7 @@ description = T(
     "服务端 Boss 伤害过载、暴怒叠层与暴击机制。"
 )
 author = "Codex"
-version = "1.0.4"
+version = "1.0.5"
 
 forumthread = "https://steamcommunity.com/sharedfiles/filedetails/?id=3765798673"
 api_version = 10
@@ -31,6 +31,8 @@ all_clients_require_mod = false
 client_only_mod = false
 server_filter_tags = { "server_only_mod", "environment", "boss", "combat", "enrage", "critical" }
 priority = 0
+icon_atlas = "modicon.xml"
+icon = "modicon.tex"
 
 configuration_options =
 {
